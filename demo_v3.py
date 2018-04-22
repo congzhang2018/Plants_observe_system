@@ -56,7 +56,7 @@ class PlantMonitoring:
         self.current_light_time = 0
         self.current_dark_time = 0
         date = datetime.now()
-        self.current_date = date.day
+        self.current_date = date.day -1
 
         self.send_warning_report = False
     """
@@ -87,19 +87,20 @@ class PlantMonitoring:
     def GetLightingTime(self):
 
         result = GPIO.input(26)
-        if result == 1:
+        if result == 0:
             self.counter_light += 1
         else:
             self.counter_dark += 1
 
-        self.current_light_time = self.counter_light * 5
-        self.current_dark_time = self.counter_dark * 5
+        self.current_light_time = self.counter_light * 2
+        self.current_dark_time = self.counter_dark * 2
 
 
     """
     Recive soil mositure data form arduino
     """
     def GetSoilHumidity(self):
+
         soil_humidity = 0
         for i in range(10):
             soil_humidity1 = int(self.ser.readline())
@@ -108,13 +109,14 @@ class PlantMonitoring:
 
         self.average_soil_humidity = (1-(soil_humidity/10.0/1024.0))*100
         print "soil_humidity precents:",self.average_soil_humidity
-        
+
 
     """
     get humidity and temperature
     note: read-retry function read data every 2 seconds.
     """
     def GetTemperature(self):
+
         humidity = 0
         temperature = 0
         for i in range(10):
@@ -163,8 +165,8 @@ class PlantMonitoring:
         mysqldb.close()
 
     def SigintHandle(self):
-        self.logger.shutdown()
-        self.logger.close()
+        logging.shutdown()
+
 
     """
     Check if the plants need take care
@@ -233,7 +235,7 @@ current lighting time: %f min' % \
 
     def SendDailyReport(self):
         date = datetime.now()
-        if self.current_lighting_time < 300:
+        if self.current_light_time < 300:
             self.daily_report.body = 'The daily report for your plants!! You need make your plants have more light!! Current state --> \n \
 report data(mm/dd/yy): %d ,%d ,%d ,\n \
 soil humidity: %f percents,\n \
@@ -273,7 +275,7 @@ def initail():
 
 def Programming():
     print "Runing Programming"
-    print "begin time", time.time()
+    print "begin time: %.30f" %( time.time())
     global task
     try:
         date = datetime.now()
@@ -290,9 +292,9 @@ def Programming():
             plants.SendDailyReport()
             plants.current_date = date.day
             plants.send_warning_report = False
-        print "end time", time.time()
         task = Timer(120, Programming)
         task.start()
+        print "end time: %.30f" %( time.time())
     except KeyboardInterrupt:
         print "End the program!"
         task.cancel()
