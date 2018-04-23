@@ -162,6 +162,8 @@ class PlantMonitoring:
         mysqldb.commit()
         cursor.execute("update table1 set id = id - 1")
         mysqldb.commit()
+        cursor.execute("DELETE FROM table1 WHERE id < 0")
+        mysqldb.commit()
         mysqldb.close()
 
     def SigintHandle(self):
