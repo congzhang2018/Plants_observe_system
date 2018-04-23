@@ -56,7 +56,7 @@ class PlantMonitoring:
         self.current_light_time = 0
         self.current_dark_time = 0
         date = datetime.now()
-        self.current_date = date.day -1
+        self.current_date = date.day 
 
         self.send_warning_report = False
     """
@@ -107,7 +107,7 @@ class PlantMonitoring:
             soil_humidity += soil_humidity1
             print "soil_humidity time:",i
 
-        self.average_soil_humidity = (1-(soil_humidity/10.0/1024.0))*100
+        self.average_soil_humidity = (1.0-(((soil_humidity/10.0)-328.0)/695.0))*100
         print "soil_humidity precents:",self.average_soil_humidity
 
 
@@ -177,7 +177,7 @@ class PlantMonitoring:
         date = datetime.now()
         if not self.send_warning_report:
 
-            if self.average_soil_humidity < 63:
+            if self.average_soil_humidity < 69:
 
                 self.warning_report.body = 'Your plants need Water!! Current state --> \n \
 report data(mm/dd/yy): %d ,%d ,%d ,\n \
@@ -211,7 +211,7 @@ current lighting time: %f min' % \
                 self.SendEmail(self.warning_report)
                 self.send_warning_report = True
 
-            elif self.average_humidity > 65:
+            elif self.average_humidity > 85:
                 self.warning_report.body = 'The surrounding humidity is too high, your plants need help!! Current state --> \n \
 report data(mm/dd/yy): %d ,%d ,%d  ,\n \
 soil humidity: %f percents,\n \
