@@ -22,10 +22,35 @@ In the picture is this program's system. it shows the how this system work.
 * Raspberry Pi (Ubuntu Mate):  
   [Install MySQL](https://www.digitalocean.com/community/tutorials/how-to-install-the-latest-mysql-on-ubuntu-16-04#step-1-%E2%80%94-adding-the-mysql-software-repository)  
   [Install PHP and Apache server](https://howtoraspberrypi.com/how-to-install-web-server-raspberry-pi-lamp/)  
+  * Put [Display_dat.php](https://github.com/congzhang2018/Plants_observe_system/blob/master/Display_data.php) in the server's workspace  
+  * connection with sensors:  
+
+
+  |Sensors|Name|Port|
+  |:---|:---|:---|
+  |DH11|+5V|+5V|
+  |    |GND|GND|
+  |    |data|26|
+  |Photosensitive sensor|+5V|+5V|
+  |    |GND|GND|
+  |    |data|4|
+
+
 * Arduino UNO:
-  Because Raspberry Pi can not read analog signal, I decide to using Arduino to read the Soil humidity sensor to read the analog signal and then using serial communication to send the data to Raspberry Pi. The code is in [soil_humidity_sensor_arduino](https://github.com/congzhang2018/Plants_observe_system/tree/master/soil_humidity_sensor_arduino) file.
+  Because Raspberry Pi can not read analog signal, I decide to using Arduino to read the Soil humidity sensor to get the analog signal and then using serial communication (through USB port) to send the data to Raspberry Pi. The code is in [soil_humidity_sensor_arduino](https://github.com/congzhang2018/Plants_observe_system/tree/master/soil_humidity_sensor_arduino) file.  
+  connection with soil_sensor:
+
+
+  |Name|Port|
+  |:---|:---|
+  |+5V|+5V|
+  |GND|GND|
+  |data|A1|
+
+
 * System Control Flow  
   ![Control_flow](https://github.com/congzhang2018/Plants_observe_system/blob/master/Picture/control_flow.png)  
+  The [dem_v3.py](https://github.com/congzhang2018/Plants_observe_system/blob/master/demo_v3.py) is the main code which running at Raspberry_pi.   
   In this control flow, the program will get the data from sensors first, then it need to check if the data out of the request range to determine if it needs to send email. If it need send email, it will check if it sent email today, because we only want one remind email every day. Next, it need to save the data to database and record to a log file. At last, it will check if the day change, if it come to next day, the system need to reset some value, for example, the flag of send email, the flag of day. Meantime, it need close last time log file and open a new file for a new day.  
   In the program
 
