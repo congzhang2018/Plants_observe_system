@@ -6,12 +6,15 @@ In the picture is this program's system. it shows the how this system work.
 
 ![Sys_diagram](https://github.com/congzhang2018/Plants_observe_system/blob/master/Picture/Sys_diagram.png)
 
+
+# This instruction still not finished!!!
+
 ## Hardware Part
   |Name|Picture|
   |:---|:---|
-  |Soil humidity sensor|![Soil_sensor]（https://github.com/congzhang2018/Plants_observe_system/blob/master/Picture/soil_sensor.png ）
-  |DH11 temperature & humidity sensor|![DH11]（https://github.com/congzhang2018/Plants_observe_system/blob/master/Picture/DH11.png ）
-  |Photosensitive sensor|![Light_sensor]（https://github.com/congzhang2018/Plants_observe_system/blob/master/Picture/Light_sensor.png ）
+  |Soil humidity sensor|![Soil_sensor](https://github.com/congzhang2018/Plants_observe_system/blob/master/Picture/soil_sensor.png?raw=true)
+  |DH11 temperature & humidity sensor|![DH11](https://raw.githubusercontent.com/congzhang2018/Plants_observe_system/master/Picture/DH11.png)
+  |Photosensitive sensor|![Light_sensor](https://github.com/congzhang2018/Plants_observe_system/blob/master/Picture/Light_sensor.png?raw=true)
   |Arduino UNO|![Arduino](https://store-cdn.arduino.cc/usa/catalog/product/cache/1/image/520x330/604a3538c15e081937dbfbd20aa60aad/a/0/a000066_featured_4.jpg)
   |Raspberry Pi 3 Model B|![Raspberry_pi](https://images-na.ssl-images-amazon.com/images/I/91zSu44%2B34L._SX355_.jpg)
 
